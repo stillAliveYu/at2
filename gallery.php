@@ -1,5 +1,4 @@
 
-<!-- view, edit, del functions-->
 <?php 
 	include_once('php/connection.php');
 ?>    
@@ -11,14 +10,24 @@
 ?>
 <!--end of the query-->
 
+<!-- view, edit, del functions-->
 <?php 
 	$showModal = false; // show the message here
-	$name='';
 	$galley;
+	$name='';
+	$artist='';
+	$style = '';
+	$media = '';
+	$year = '';
+	$img=NULL;
 	if(!empty($_POST['view'])){
 		$index = $_POST['index'] -1 ;
 		$name = $gallery[$index]['name'];
 		$img = $gallery[$index]['img'];
+		$artist = $gallery[$index]['artist'];
+		$style = $gallery[$index]['style'];
+		$media = $gallery[$index]['media'];
+		$year = $gallery[$index]['year'];
 		$showModal = true;
 	}
 ?>

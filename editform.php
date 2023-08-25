@@ -17,7 +17,7 @@
     if(isset($_POST['submit']) && $inputvs[0] != '-1') {
         $id = $inputvs[0];
         $name = $_POST['title'];
-        $year = $_POST['year'];
+        $year= $_POST['year'];
         
         $media = $_POST['media'];
         $artist = $_POST['artist'];

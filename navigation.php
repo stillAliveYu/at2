@@ -46,7 +46,7 @@
                         </li>
   
                         <li class="nav-item">
-                            <a class="nav-link" href="search.html">
+                            <a class="nav-link" href="search.php">
                                 Search Engine
                             </a>
                         </li>

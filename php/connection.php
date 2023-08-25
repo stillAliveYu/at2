@@ -52,19 +52,23 @@ class connection{
         return $row;
     }
 
-    public function update1($id,$name,$year,$media,$artist,$style,$img,$tn,$tbname = 'paint'){
-        $sql = "UPDATE $tbname SET name=?, year=?,media=?,artist=?,style=?,img=?,tn=? WHERE id=?";
-        $stmt= $this->connection->prepare($sql);
-        $stmt->execute([$name,$year,$media,$artist,$style,$img,$tn,$id]);
-        return $stmt;
-    }
-
     public function update($id,$name,$year,$media,$artist,$style,$img,$tn,$tbname = 'paint'){
         $sql = "UPDATE $tbname SET name=?, year=?,media=?,artist=?,style=?,img=?,tn=? WHERE id=?";
         $stmt= $this->connection->prepare($sql);
         $stmt->execute([$name,$year,$media,$artist,$style,$img,$tn,$id]);
         return $stmt;
     }
+
+    public function findByTitle($keyword,$tbname = 'paint'){
+        
+        $query = "SELECT * FROM $tbname WHERE name LIKE ?";
+        $param = "%$keyword%";
+        $stmt= $this->connection->prepare($query);
+        $stmt->execute([$param]);
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $rows;
+    }
+
     public function close() {
         $this->connection = null;
     }
