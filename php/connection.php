@@ -24,7 +24,7 @@ class connection{
 
     public function getWholeGallery($tbName = 'paint'){
         $stmt = $this->connection->prepare(
-            "SELECT * FROM $tbName");
+            "SELECT * FROM $tbName ORDER BY name");
         $stmt->execute();
         $g = $stmt->fetchAll(); 
        return $g;

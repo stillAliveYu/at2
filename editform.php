@@ -164,7 +164,13 @@
                         <option>Surrealism</option>
                     </select>
                 </label> <br><br>
-                 <label> Pick an image:  <input type='file' name='file' id = 'fileInput' accept="image/*"  /> </label> <br><br>
+                 <label> Pick an image:  <input type='file' name='file' id = 'fileInput' accept="image/*"  
+                 <?php 
+                    if($inputvs[0] == '-1'){
+                        echo 'required'; 
+                    }
+                 ?>/> 
+                 </label> <br><br>
 
                 <label> Save your image to database: <input type='submit' value='save to server' name='submit' /></label><br><br>
             </div>
@@ -179,18 +185,15 @@
             document.getElementById(id).value = value;
             return setValue; 
 
-        }
-        ('title','<?php echo $inputvs[1] ?>'))
-        ;
+        });
     </script>
 
     <script>
-         
+        reference('title','<?php echo $inputvs[1] ?>');
         reference('date','<?php echo date($inputvs[2]) ?>');
         reference('media','<?php echo $inputvs[3] ?>');
         reference('artist','<?php echo $inputvs[4] ?>');
         reference('style','<?php echo $inputvs[5] ?>');
-        
     </script>
     <!--any client side script should be java script-->
      <!--showing the thumbnail when pickup the images

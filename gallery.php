@@ -37,15 +37,16 @@
 	//this design is a very bad one, but it works, will refactor if I have time
 	if(!empty($_POST['del'])){
 
-		if($_POST['index']== 0){
+		if($_POST['delindex']== 0){
 			$index = $_POST['index'] ;
 			//todo disable the del botton
 		}
-		else {$index = $_POST['index'] -1;
+		else {$index = $_POST['delindex'] -1;
 		
 			$pickedid = $gallery[$index]['id'];
 			
-			$deleresult=$conn->del($pickedid);}
+			//$deleresult=$conn->del($pickedid);
+		}
 	}
 	$gallery = $conn->getWholeGallery();
 ?>
