@@ -35,8 +35,7 @@ class connection{
         $statement = $this->connection->prepare($query);
         $result = $statement->execute(
           array($name,$year,$media,$artist,$style,$img,$tn));
-          $id = $this->connection->lastInsertId();
-        return $id;
+        return $result;
     }
 
     public function del($id,$tbname = 'paint'){
@@ -46,7 +45,7 @@ class connection{
         return $stmt;
     }
     public function findById($id,$tbname = 'paint'){
-        $query = "SELECT * FROM $tbname WHERE id=?";
+        $query = "SELECT name FROM $tbname WHERE id=?";
         $stmt= $this->connection->prepare($query);
         $stmt->execute([$id]);
         $row = $stmt->fetch();
@@ -63,16 +62,6 @@ class connection{
     public function findByTitle($keyword,$tbname = 'paint'){
         
         $query = "SELECT * FROM $tbname WHERE name LIKE ?";
-        $param = "%$keyword%";
-        $stmt= $this->connection->prepare($query);
-        $stmt->execute([$param]);
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $rows;
-    }
-
-    public function findByArtist($keyword,$tbname = 'paint'){
-        
-        $query = "SELECT * FROM $tbname WHERE artist LIKE ?";
         $param = "%$keyword%";
         $stmt= $this->connection->prepare($query);
         $stmt->execute([$param]);

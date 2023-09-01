@@ -1,20 +1,16 @@
 <?php 
+    include_once('php/context.php');
+    session_start(); 
+    //prepair for a empty form
+    //set the id = -1 as a flag for new paint
+    $sessionId = new SessionId();	
+    //$editPaintSessionId = $sessionId->editFormDataSessionId();	
+    $newPaintSessionId = $sessionId->newPaintDataSessionId();
+    $editFormSessionId = $sessionId->currentEditFormDataSessionId();
+    $p = array('-1','','','','','','','');
 
-session_start(); 
-include_once('php/connection.php');
-
-/*
-if(empty($_SESSION['edit'])){
-	echo 'the session edit is not set';
-}
-else{
-	echo 'the session edit is set';
-}
-*/
-$p = array('-1','','','','','','','');
-
-$_SESSION['editpaint'] = serialize($p);
-
-header("Location: editform.php"); //jump to update page
-exit();
+    $_SESSION[$newPaintSessionId] = serialize($p);
+    unset($_SESSION[$editFormSessionId]);
+    header("Location: editPaintForm.php"); //jump to update page
+    exit();
 ?>

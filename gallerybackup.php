@@ -9,12 +9,6 @@
 	$gallery = $conn->getWholeGallery();
 	$sessionId = new SessionId();	
 	$gallerySessionId = $sessionId->galleryDataSessionId();		
-
-	//$currentRowIndexSessionId = $sessionId->currentRowIndexSessionId();
-	$editPaintSessionId = $sessionId->editFormDataSessionId();	
-	$viewModlSessionId = $sessionId->currentModalDataSessionId();
-	$deletePaintSessionId = $sessionId->deletePaintDataSessionId();
-	//$currentModalDataSessionId = $sessionId->currentModalDataSessionId();
 ?>
 	
 <?php
@@ -25,51 +19,60 @@
 
 <!-- view, edit, del functions-->
 <?php 
-	$showModal = false; // disable the image card first
+	$showModal = false; // show the message here
+	$galley;
+	$name='';
+	$artist='';
+	$style = '';
+	$media = '';
+	$year = '';
+	$img=NULL;
 	if(!empty($_POST['view'])){
-		$paintToView = $gallery[$_POST['currentindex'] -1];
-		$_SESSION[$viewModlSessionId]= serialize($paintToView);
+		$index = $_POST['index'] -1 ;
+		$name = $gallery[$index]['name'];
+		$img = $gallery[$index]['img'];
+		$artist = $gallery[$index]['artist'];
+		$style = $gallery[$index]['style'];
+		$media = $gallery[$index]['media'];
+		$year = $gallery[$index]['year'];
 		$showModal = true;
-		//very important, destroy the session after finished the viewing
-		unset($_SESSION[$gallerySessionId]);
-		
 	}
 ?>
 
 <?php 
-	 $showDelModal = false; 
-	//delete step1 "retrieve the data of paint from server and show the confirmation window
+	
+	//this design is a very bad one, but it works, will refactor if I have time
 	if(!empty($_POST['del'])){
-		$index = $_POST['currentindex'] -1;
-		$paintToDelete = $gallery[$_POST['currentindex'] -1];
-		$_SESSION[$deletePaintSessionId]= serialize($paintToDelete);
-		$showDelModal = true;
-	}
-?>
 
-<?php 
-//delete step2, after confirmation ,delete it from DB
-	if(!empty($_POST['delconfirm'])){
-		$pid = $_POST['currentid'];
-		$deleresult=$conn->del($pid);
+		if($_POST['delindex']== 0){
+			$index = $_POST['index'] ;
+			//todo disable the del botton
+		}
+		else {$index = $_POST['delindex'] -1;
+		
+			$pickedid = $gallery[$index]['id'];
+			
+			$deleresult=$conn->del($pickedid);
+		}
 	}
 	$gallery = $conn->getWholeGallery();
 ?>
 
 <?php 
+	//this design is a very bad one, but it works, will refactor if I have time
+	
 	if(!empty($_POST['edit'])){
-		$index = $_POST['currentindex'] -1;
+		$index = $_POST['index'] -1;
 		$pickedpaint = $gallery[$index];
-		$sessionId = new SessionId();	
-	    $editPaintSessionId = $sessionId->editFormDataSessionId();	
-		
-		$_SESSION[$editPaintSessionId] = serialize($pickedpaint);
-
+		session_start();
+		$_SESSION['edit'] = serialize($pickedpaint);
 		header("Location: update.php"); //jump to update page
 		exit();
 	}
-	
+	$gallery = $conn->getWholeGallery();
 ?>
+
+
 
 <html lang = "en">
 	<head>
@@ -85,9 +88,7 @@
 			<!--navigation bar plug in-->
 			<?php include 'navigation.php';?>
 			<!--end of Navigation bar-->
-			<?php
-        		include 'php/filter.php';
-        	?>
+
 			<!--table plug in-->
 			<?php 
 				include 'php/gallerytable.php';
@@ -98,12 +99,10 @@
 		
 		<!--definition of a image card here -->
 		<?php require 'php/imagecard.php';?>
-		<?php require 'php/delmodal.php';?>
 		<!--end of plug in image card-->
 		
 		<!--image plug-in controller here -->			
-		<?php require 'php/showmodal.php';?>
-		<?php require 'php/showdelmodal.php';?>
+		<?php //require 'php/showmodal.php';?>
 		<!--end of plug in image controller here -->	
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 		

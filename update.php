@@ -1,18 +1,20 @@
 <?php 
-if(!isset($_SESSION)) 
-{ 
-    session_start(); 
-} 
-include_once('php/connection.php');
+    include_once('php/context.php');
+    session_start();
 	
-    if(isset($_SESSION['edit'])){
-       
-        $p = unserialize($_SESSION['edit']);
-        echo $p[0];
-        $_SESSION['editpaint'] = serialize($p);
+    $sessionId = new SessionId();	
+    $editPaintSessionId = $sessionId->editFormDataSessionId();	
+   
+    if(isset($_SESSION[$editPaintSessionId])){
+        // prepare the data for the paint to pass to edit page
+        $currentEditFormDataSessionId =  $sessionId->currentEditFormDataSessionId();
+        $piantToPass = unserialize($_SESSION[$editPaintSessionId]);
+        $_SESSION[$currentEditFormDataSessionId] = serialize($piantToPass);
+        //destroy the session after the job
+        unset($_SESSION[$editPaintSessionId]);
     }
 	
-	header("Location: editform.php"); //jump to update page
+	header("Location: editPaintForm.php"); //jump to update page
 	exit();
 ?>
     

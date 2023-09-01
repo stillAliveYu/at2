@@ -19,48 +19,50 @@
 </head>
   
 <body>
-    <!-- Creating Nav Bar  -->
-    <section id="navigation" class="container bg-dark text-white border my-3">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <div class=" navbar-default">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item ">
-                            <!--Initially active class 
-                                is set to home link -->
-                            <a class="nav-link active" href="index.php">
-                                Home
-                            </a>
-                        </li>
-  
-                        <li class="nav-item">
-                            <a class="nav-link" href="gallery.php">
-                                Art Gallery
-                            </a>
-                        </li>
-  
-                        <li class="nav-item">
-                            <a class="nav-link" href="insert.php">
-                                New record
-                            </a>
-                        </li>
-  
-                        <li class="nav-item">
-                            <a class="nav-link" href="search.php">
-                                Search Engine
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="contact.php">
-                                Contact Us
-                            </a>
-                        </li>
-                    </ul>
+    <div class="container">
+        <!-- Creating Nav Bar  -->
+        <section id="navigation" class="container bg-dark active  my-3">
+            <nav class="navbar navbar-expand-lg  bg-dark text-info active">
+                <!--<div class="container">-->
+                    <div class=" navbar-default">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item ">
+                                <!--Initially active class 
+                                    is set to home link -->
+                                <a class="nav-link" href="index.php">
+                                    Home
+                                </a>
+                            </li>
+    
+                            <li class="nav-item">
+                                <a class="nav-link" href="gallery.php">
+                                    Art Gallery
+                                </a>
+                            </li>
+    
+                            <li class="nav-item">
+                                <a class="nav-link" href="insert.php">
+                                    New record
+                                </a>
+                            </li>
+    
+                            <li class="nav-item">
+                                <a class="nav-link" href="search.php">
+                                    Search Engine
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="contact.php">
+                                    Contact Us
+                                </a>
+                            </li>
+                        </ul>
+                    <!--</div>-->
                 </div>
-            </div>
-        </nav>
-        <script src="scripts/activeBarItem.js"></script>
-    </section>
+            </nav>
+            <script src="scripts/activeBarItem.js"></script>
+        </section>
+    </div>
 </body>
   
 </html>
